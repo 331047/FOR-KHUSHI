@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday | Divine Wishes For Someone Special</title>
+  
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark: #05060f;
+      --card-bg: rgba(15, 18, 35, 0.85);
+      --gold-primary: #ffd700;
+      --gold-secondary: #f4d068;
+      --crimson: #ff2a5f;
+      --neon-blue: #00f0ff;
+      --text-light: #ffffff;
+      --text-muted: #b0b8ca;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      position: fixed;
+    }
+
+    /* Cosmic Background & Floating Elements */
+    #starsCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Mystic Shiva Background Watermark */
+    .shiva-bg-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 35vw;
+      color: rgba(0, 240, 255, 0.025);
+      font-family: 'Cinzel', serif;
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseOm 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseOm {
+      0% { transform: translate(-50%, -50%) scale(0.95) rotate(-2deg); opacity: 0.02; }
+      100% { transform: translate(-50%, -50%) scale(1.05) rotate(2deg); opacity: 0.04; }
+    }
+
+    /* Mobile First Screen Architecture */
+    .app-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 15px 15px 85px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.95);
+      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    /* Mobile Glassmorphism Card Style */
+    .glass-card {
+      background: linear-gradient(135deg, rgba(20, 25, 48, 0.9), rgba(10, 12, 26, 0.95));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7),
+                  0 0 15px rgba(255, 215, 0, 0.1);
+      border-radius: 20px;
+      padding: 18px 14px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header & Titles */
+    .divine-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--gold-primary);
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .trishul-icon {
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 8px var(--gold-primary));
+    }
+
+    .glowing-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold-primary) 50%, var(--gold-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .romantic-sub {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--crimson);
+      text-shadow: 0 0 12px rgba(255, 42, 95, 0.5);
+      margin-bottom: 6px;
+    }
+
+    /* Fixed 9:16 Video Wrapper (Full visible fix) */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 200px;
+      height: 310px;
+      margin: 8px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Isse video katega nahi, poora dikhega */
+    }
+
+    /* Mobile Photo Frame */
+    .photo-frame {
+      width: 100%;
+      height: 170px;
+      margin: 0 auto 8px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 215, 0, 0.4);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+      position: relative;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .special-message-box {
+      background: rgba(5, 6, 15, 0.75);
+      border-left: 3px solid var(--gold-primary);
+      padding: 10px;
+      border-radius: 8px;
+      font-style: italic;
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    /* Mobile Flip Cards Grid (2x2) */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      height: 95px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .flip-card-front {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.35), rgba(255, 42, 95, 0.35));
+      color: #fff;
+      transform: rotateY(180deg);
+      font-size: 0.73rem;
+      border-color: var(--crimson);
+      line-height: 1.25;
+    }
+
+    /* Virtual Gift Box Slide */
+    .gift-box-container {
+      margin: 12px auto;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .gift-icon {
+      font-size: 3.5rem;
+      color: var(--crimson);
+      filter: drop-shadow(0 0 15px rgba(255, 42, 95, 0.7));
+      animation: pulseGift 1.4s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGift {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+
+    .coupon-card {
+      display: none;
+      background: linear-gradient(135deg, #ffd700, #f4d068);
+      color: #05060f;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 8px;
+      border: 2px dashed #05060f;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      animation: popIn 0.6s ease forwards;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Bottom Touch Navigation Bar */
+    .nav-bar {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+      background: rgba(10, 12, 26, 0.9);
+      padding: 6px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.25;
+      border-color: var(--text-muted);
+      color: var(--text-muted);
+    }
+
+    .slide-counter {
+      font-size: 0.85rem;
+      color: var(--gold-secondary);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Starfield Canvas -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- Mystic Shiva Background Watermark -->
+  <div class="shiva-bg-glow">🕉️</div>
+
+  <div class="app-container">
+
+    <!-- SLIDE 1: Hero & Video with Shiv Blessings -->
+    <div class="slide active" id="slide-1">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span class="trishul-icon">🔱</span>
+          <span>Shiv-Shakti Blessings</span>
+          <span class="trishul-icon">🔱</span>
+        </div>
+        <h1 class="glowing-title">Lord Shiva's Grace On You</h1>
+        <div class="romantic-sub">Happy Birthday To Someone Special!</div>
+
+        <!-- Video Player (Fixed with object-fit: contain) -->
+        <div class="video-wrapper">
+          <video id="heroVideo" controls>
+            <source src="video_1.mp4" type="video/mp4" />
+            Aapka browser video support nahi karta.
+          </video>
+        </div>
+
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+          "Mahadev ki kripa se aapki har raah mein sirf khushiyan hon."
+        </p>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Photo 1 (Saree Look) + Message -->
+    <div class="slide" id="slide-2">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span>CHAPTER I</span>
+        </div>
+        <h2 class="glowing-title">A Special Presence</h2>
+        
+        <div class="photo-frame">
+          <img src="1000063381.jpg" alt="Saree Look" />
+        </div>
+
+        <div class="special-message-box">
+          "Saree mein aapka yeh andaaz aur saadgi dil ko chu lene wali hai. Aapki maujudgi hi har pal ko aur bhi khoobsurat bana deti hai."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Photo 2 (Blue Kurti) + Message -->
+    <div class="slide" id="slide-3">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span>CHAPTER II</span>
+        </div>
+        <h2 class="glowing-title">Your Pure Vibe</h2>
+        
+        <div class="photo-frame">
+          <img src="1000063377.jpg" alt="Blue Kurti Look" />
+        </div>
+
+        <div class="special-message-box">
+          "Aapki muskaan mein ek alag sa sukoon hai. Aapki saadgi aur baatein mujhe bahut pasand hain, aur aapke saath bitaya har pal bahut khaas hota hai."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Photo 3 (Pink Kurti) + Message -->
+    <div class="slide" id="slide-4">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span>CHAPTER III</span>
+        </div>
+        <h2 class="glowing-title">Admiration & Respect</h2>
+        
+        <div class="photo-frame">
+          <img src="1000063378.jpg" alt="Pink Kurti Look" />
+        </div>
+
+        <div class="special-message-box">
+          "Aap jis tarah se har cheez ko samajhte ho aur muskurate ho, woh mujhe bahut bhaata hai. Aapke liye dil mein hamesha bahut sammaan aur pasandgi rahegi."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Photo 4 (Light Blue Kurti) + Message -->
+    <div class="slide" id="slide-5">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span>CHAPTER IV</span>
+        </div>
+        <h2 class="glowing-title">Wishing For Your Happiness</h2>
+        
+        <div class="photo-frame">
+          <img src="1000063379.jpg" alt="Light Blue Kurti Look" />
+        </div>
+
+        <div class="special-message-box">
+          "Mahadev se bas yahi prarthana hai ki aap jeevan mein jis bhi mod par jayein, safalta aur sacchi muskaan sada aapke saath rahe."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Reasons Why I Admire You (Flip Cards) -->
+    <div class="slide" id="slide-6">
+      <div class="glass-card">
+        <div class="divine-header">
+          <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i>
+          <span>WHY YOU ARE SPECIAL</span>
+          <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i>
+        </div>
+        <h2 class="glowing-title">Things I Admire About You</h2>
+
+        <div class="cards-grid">
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fa-solid fa-smile-beam fa-lg" style="margin-bottom: 4px;"></i>
+                <span>Your Smile</span>
+              </div>
+              <div class="flip-card-back">
+                <span>Aapki muskaan bahut maasoom aur pyaari hai.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fa-solid fa-sparkles fa-lg" style="margin-bottom: 4px;"></i>
+                <span>Your Vibe</span>
+              </div>
+              <div class="flip-card-back">
+                <span>Aapki positivity bahut aakarshit karti hai.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fa-solid fa-heart fa-lg" style="color: var(--crimson); margin-bottom: 4px;"></i>
+                <span>Kind Heart</span>
+              </div>
+              <div class="flip-card-back">
+                <span>Aapka saaf dil hi aapko khaas banata hai.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fa-solid fa-om fa-lg" style="margin-bottom: 4px;"></i>
+                <span>Pure Bond</span>
+              </div>
+              <div class="flip-card-back">
+                <span>Mahadev ki kripa se aapka hona sundar hai.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Surprise Gift Box & Confetti -->
+    <div class="slide" id="slide-7">
+      <div class="glass-card">
+        <div class="divine-header">
+          <i class="fa-solid fa-gift"></i>
+          <span>SURPRISE FOR YOU</span>
+        </div>
+        <h2 class="glowing-title">Tap To Open Gift!</h2>
+
+        <div class="gift-box-container" onclick="openGift()">
+          <i class="fa-solid fa-box-open gift-icon" id="giftIcon"></i>
+        </div>
+
+        <div class="coupon-card" id="couponCard">
+          <i class="fa-solid fa-gift fa-lg" style="color: #ff2a5f; margin-bottom: 4px;"></i>
+          <h3 style="font-size: 0.9rem; line-height: 1.35; color: #05060f;">
+            Vese toh yeh gift bahut bahut pyaara hai... <br/>
+            <span style="color: #ff2a5f;">(Lekin aap jitna nahi! 😉✨)</span>
+          </h3>
+          <p style="font-size: 0.76rem; margin-top: 5px; color: #1a1d36; font-weight: 600;">
+            Jab hum milenge, tab yeh gift main aapko apne haathon se dunga! 🎁🌸
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Heartfelt Wishes & Shiv Gratitude -->
+    <div class="slide" id="slide-8">
+      <div class="glass-card">
+        <div class="divine-header">
+          <span class="trishul-icon">🔱</span>
+          <span>DEVOTION & RESPECT</span>
+        </div>
+        <div class="romantic-sub">Happy Birthday To You!</div>
+
+        <p style="font-size: 0.83rem; line-height: 1.5; color: #e2e8f0; margin-bottom: 10px;">
+          "Aap meri nazar mein bahut khaas hain. Bhagwan Shiv se prarthana hai ki aapki zindagi mein har naya din nayi safalta aur apaار khushiyan lekar aaye."
+        </p>
+
+        <div style="border-top: 1px dashed rgba(255, 215, 0, 0.4); padding-top: 8px; font-size: 0.78rem; color: var(--gold-primary);">
+          <p><strong>Har Har Mahadev 🕉️</strong></p>
+          <p style="color: var(--text-muted); margin-top: 2px;">"May Lord Shiva bless you with pure joy and success."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="nav-bar">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    
+    <div class="slide-counter" id="slideCounter">1 / 8</div>
+    
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <script>
+    // Starfield & Cosmic Sparks Animation
+    const canvas = document.getElementById('starsCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initStars();
+    }
+
+    function initStars() {
+      stars = [];
+      const numStars = Math.floor((canvas.width * canvas.height) / 2000);
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          alpha: Math.random(),
+          speed: 0.005 + Math.random() * 0.02,
+          color: Math.random() > 0.3 ? "#ffd700" : "#00f0ff"
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.alpha += star.speed;
+        if (star.alpha > 1 || star.alpha < 0) {
+          star.speed = -star.speed;
+        }
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = Math.abs(star.alpha);
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = star.color;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateStars();
+
+    // Slide Navigation Logic
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+
+      if (currentSlide < 1) currentSlide = 1;
+      if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      const nextElement = document.getElementById(`slide-${currentSlide}`);
+      nextElement.classList.add('active');
+
+      document.getElementById('prevBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+      document.getElementById('slideCounter').innerText = `${currentSlide} / ${totalSlides}`;
+    }
+
+    // Gift Opening & Magical Fireworks Confetti
+    let giftOpened = false;
+    function openGift() {
+      if (giftOpened) return;
+      giftOpened = true;
+
+      const giftIcon = document.getElementById('giftIcon');
+      const couponCard = document.getElementById('couponCard');
+
+      giftIcon.className = "fa-solid fa-box-open gift-icon";
+      giftIcon.style.color = "#ffd700";
+      couponCard.style.display = "block";
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ffd700', '#ff2a5f', '#00f0ff', '#ffffff']
+      });
+    }
+
+    // Touch/Swipe Support for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        if (currentSlide < totalSlides) changeSlide(1);
+      }
+      if (touchEndX > touchStartX + 50) {
+        if (currentSlide > 1) changeSlide(-1);
+      }
+    }
+  </script>
+</body>
+</html>
